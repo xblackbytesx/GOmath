@@ -1,5 +1,32 @@
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  height: 100vh;
+}
+
+.header {
+  background-color: darkgoldenrod;
+  color: #FFF;
+  padding: 16px;
+  text-align: center;
+  font-weight: 16px;
+  font-weight: bold;
+}
+
+#app__container {
+  max-width: 992px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.main {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
 #question {
