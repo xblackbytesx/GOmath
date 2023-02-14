@@ -1,0 +1,7 @@
+version: "3"
+services:
+  gomath-app:
+    build: .
+    container_name: gomath-app
+    ports:
+      - "8080:8080"
