@@ -12,8 +12,16 @@
   <link rel="stylesheet" type="text/css" href="static/mathgame.css">
 </head>
 <body>
-  <div id="app">
-    <header class="header">GOmath Kids</header>
+  <div id="app" data-theme="light">
+    <header class="header">
+      GOmath Kids
+      <div class="header__tools">
+        <label for="theme-switch" class="switch">
+          <input type="checkbox" id="theme-switch">
+          <span class="slider"></span>
+        </label>        
+      </div>
+    </header>
     <div id="app__container">
       <section class="main">
         <div id="question" data-content="question"></div>
@@ -22,5 +30,31 @@
       </section>
     </div>
   </div>
+  <script>
+    function setTheme(theme) {
+      // Set the data-theme attribute on the root element
+      document.getElementById('app').setAttribute('data-theme', theme);
+      // Store the theme preference in local storage
+      localStorage.setItem('theme', theme);
+    }
+
+    // Check local storage for the theme preference on page load
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+
+    // Listen for clicks on the theme switch and toggle the theme accordingly
+    const themeSwitch = document.getElementById('theme-switch');
+    if (themeSwitch) {
+      themeSwitch.addEventListener('click', function() {
+        if (document.getElementById('app').getAttribute('data-theme') === 'dark') {
+          setTheme('light');
+        } else {
+          setTheme('dark');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
