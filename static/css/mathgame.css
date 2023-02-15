@@ -1,6 +1,5 @@
 @import './variables.css';
 
-/* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box;
 }
@@ -30,10 +29,10 @@ body {
   flex: 0 0 50px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: var(--accent-bg-color);
   padding: var(--grid-base--x4);
   text-align: center;
-  font-weight: 16px;
   font-weight: bold;
 }
 
@@ -41,7 +40,7 @@ body {
   display: flex;
   max-width: 992px;
   margin: 0 auto;
-  padding: var(--grid-base--x4);
+  padding: var(--grid-base--x8) var(--grid-base--x4);
 }
 
 .main {
@@ -98,7 +97,6 @@ body {
 	animation: correct-animation 0.5s ease-in-out;
 }
 
-
 .switch {
   display: inline-block;
   position: relative;
@@ -152,17 +150,14 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-
 .timebar {
-  flex: 0 0 4px;
-  width: 100%;
-  height: 4px;
-  background-color: #ddd;
-}
+  flex: 0 0 8px;
+  background-color: var(--accent-bg-color);
 
-.timebar__bar {
-  height: 100%;
-  background-color: #4CAF50;
-  width: 100%;
-  transition: width 100ms;
+  &__bar {
+    height: 100%;
+    background-color: #4CAF50;
+    width: 100%;
+    transition: width 100ms;
+  }
 }

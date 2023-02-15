@@ -2,6 +2,7 @@
     --grid-base: 4px;
     --grid-base--x2: calc(var(--grid-base) * 2);
     --grid-base--x4: calc(var(--grid-base) * 4);
+    --grid-base--x8: calc(var(--grid-base) * 8);
 
     --color-gold-dark: rgb(184, 134, 11);
     --color-white: rgb(255,255,255);
