@@ -79,7 +79,7 @@ func checkAnswerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.Handle("/", http.FileServer(http.Dir(".")))
+	http.Handle("/", http.FileServer(http.Dir("./dist")))
 	http.HandleFunc("/question", questionHandler)
 	http.HandleFunc("/check", checkAnswerHandler)
 	http.ListenAndServe(":8080", nil)
