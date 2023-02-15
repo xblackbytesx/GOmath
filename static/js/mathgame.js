@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function getQuestion() {
-  const response = await fetch('/question');
+  const response = await fetch('/question?forceNew=true');
   const question = await response.json();
   resultSlot.innerHTML = defaultResultTemplate;
   questionSlot.innerHTML = `What is ${question.num1} ${question.operation} ${question.num2}?`;
@@ -67,28 +67,32 @@ function startTimer(duration, endTime) {
     const distance = endTime - now;
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
     const percentLeft = distance / (duration * 1000);
-
+  
     timerSlot.textContent = `Time remaining: ${seconds}`;
-
-    if (distance < 0) {
-      // Clear the timer and get the next question
+  
+    if (distance <= 0) {
+      // Clear the timer and invalidate the current question
       cancelAnimationFrame(requestId);
-      getQuestion();
+      resultSlot.innerHTML = "<h2>Time's up!</h2>";
+      optionsSlot.innerHTML = "";
+      setTimeout(getQuestion, 3000);
+      return;
     }
-
+  
     if (percentLeft <= 0) {
       barWidth = 0;
+      getQuestion();
     } else {
       barWidth = percentLeft * 100;
     }
     timerBar.style.width = `${barWidth}%`;
-
+  
     requestId = requestAnimationFrame(updateTimer);
   }
+  
 
   requestId = requestAnimationFrame(updateTimer);
 }
-
 
 function cancelTimer() {
   cancelAnimationFrame(requestId);
