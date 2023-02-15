@@ -1,0 +1,5 @@
+:root {
+    --grid-base: 4px;
+    --grid-base--x2: calc(var(--grid-base) * 2);
+    --grid-base--x4: calc(var(--grid-base) * 4);
+}
