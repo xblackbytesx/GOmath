@@ -3,9 +3,10 @@ let questionSlot;
 let optionsSlot;
 let resultSlot;
 let timerSlot;
+let timerBar;
 let defaultResultTemplate;
 let resultTemplate;
-let timerId;
+let requestId;
 
 document.addEventListener("DOMContentLoaded", function () {
   // Assign values to global variables
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   optionsSlot = document.querySelector('[data-content="options"]');
   resultSlot = document.querySelector('[data-content="result"]');
   timerSlot = document.querySelector('[data-content="timer"]');
+  timerBar = document.querySelector('[data-content="timebar"]');
 
   defaultResultTemplate = `<img src="./static/img/thinking.svg" alt="" />`;
   resultTemplate = defaultResultTemplate;
@@ -30,13 +32,16 @@ async function getQuestion() {
   }
   optionsSlot.innerHTML = options;
 
-  // Start the timer
-  startTimer(30);
+  const startTime = new Date().getTime();
+  const endTime = startTime + 30000;
+
+  cancelAnimationFrame(requestId);
+  startTimer(30, endTime);
 }
 
 async function checkAnswer(index) {
   // Clear the timer
-  clearTimer();
+  cancelAnimationFrame(requestId);
 
   const response = await fetch('/check', {
     method: 'POST',
@@ -53,23 +58,40 @@ async function checkAnswer(index) {
   setTimeout(getQuestion, 3000);
 }
 
-function startTimer(duration) {
-  let timer = duration;
-  timerId = setInterval(function () {
-    let minutes = Math.floor(timer / 60);
-    let seconds = timer % 60;
-    timerSlot.textContent = `Time remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+function startTimer(duration, endTime) {
+  const startTime = new Date().getTime();
+  let barWidth = 100;
 
-    if (--timer < 0) {
+  function updateTimer() {
+    const now = new Date().getTime();
+    const distance = endTime - now;
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const percentLeft = distance / (duration * 1000);
+
+    timerSlot.textContent = `Time remaining: ${seconds}`;
+
+    if (distance < 0) {
       // Clear the timer and get the next question
-      clearTimer();
+      cancelAnimationFrame(requestId);
       getQuestion();
     }
-  }, 1000);
+
+    if (percentLeft <= 0) {
+      barWidth = 0;
+    } else {
+      barWidth = percentLeft * 100;
+    }
+    timerBar.style.width = `${barWidth}%`;
+
+    requestId = requestAnimationFrame(updateTimer);
+  }
+
+  requestId = requestAnimationFrame(updateTimer);
 }
 
-function clearTimer() {
-  clearInterval(timerId);
+
+function cancelTimer() {
+  cancelAnimationFrame(requestId);
   timerSlot.textContent = '';
 }
 
