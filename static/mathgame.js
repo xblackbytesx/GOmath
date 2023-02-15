@@ -1,14 +1,31 @@
+// Declare global variables
+let questionSlot;
+let optionsSlot;
+let resultSlot;
+let defaultResultTemplate;
+let resultTemplate;
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Assign values to global variables
+  questionSlot = document.querySelector('[data-content="question"]');
+  optionsSlot = document.querySelector('[data-content="options"]');
+  resultSlot = document.querySelector('[data-content="result"]');
+
+  defaultResultTemplate = `<img src="./static/img/thinking.svg" alt="" />`;
+  resultTemplate = defaultResultTemplate;
+});
+
 async function getQuestion() {
   const response = await fetch('/question');
   const question = await response.json();
-  document.querySelector('[data-content="result"]').innerHTML = "";
-  document.querySelector('[data-content="question"]').innerHTML = `What is ${question.num1} ${question.operation} ${question.num2}?`;
+  resultSlot.innerHTML = defaultResultTemplate;
+  questionSlot.innerHTML = `What is ${question.num1} ${question.operation} ${question.num2}?`;
 
   let options = '';
   for (let i = 0; i < question.options.length; i++) {
     options += `<button id="option${i}" onclick="checkAnswer(${i})">${question.options[i]}</button>`;
   }
-  document.querySelector('[data-content="options"]').innerHTML = options;
+  optionsSlot.innerHTML = options;
 }
 
 async function checkAnswer(index) {
@@ -18,8 +35,12 @@ async function checkAnswer(index) {
     body: JSON.stringify({ option: index }),
   });
   const result = await response.json();
-  document.querySelector('[data-content="result"]').innerHTML = result.message;
-  document.querySelector('[data-content="options"]').innerHTML = '';
+
+  result.message === "Correct!"
+    ? resultTemplate = `<h2>${result.message}</h2><img src="./static/img/correct.svg" alt="" />`
+    : resultTemplate = `<h2>${result.message}</h2><img src="./static/img/incorrect.svg" alt="" />`
+  resultSlot.innerHTML = resultTemplate;
+  optionsSlot.innerHTML = '';
   setTimeout(getQuestion, 3000);
 }
 

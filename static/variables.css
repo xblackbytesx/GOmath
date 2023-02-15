@@ -5,15 +5,17 @@
 
     --color-gold-dark: rgb(184, 134, 11);
     --color-white: rgb(255,255,255);
-    --color-dark-grey: rgb(62, 62, 62);
-    --color-dirty-brown: rgb(94, 68, 4);
+    --color-off-white: rgb(238, 238, 238);
+    --color-dark-grey: rgb(26, 26, 26);
+    --color-black: rgb(0, 0, 0);
 
-
-    --primary-color: var(--color-white);
-    --accent-color: var(--color-gold-dark);
+    --primary-color: var(--color-black);
+    --primary-bg-color: var(--color-white);
+    --accent-bg-color: var(--color-gold-dark);
 }
 
 [data-theme="dark"] {
-    --primary-color: var(--color-dark-grey);
-    --accent-color: var(--color-dirty-brown);
+    --primary-color: var(--color-off-white);
+    --primary-bg-color: var(--color-dark-grey);
+    --accent-bg-color: var(--color-black);
 }
