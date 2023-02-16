@@ -4,12 +4,27 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>GOmath Kids</title>
+  <title>GoMath Kids</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="./manifest.json">
 
-  <script src="static/js/mathgame.js"></script>
-  <link rel="stylesheet" type="text/css" href="static/css/mathgame.css">
+  <script src="static/js/gomath.js"></script>
+  <link rel="stylesheet" type="text/css" href="static/css/gomath.css">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register(`/service-worker.js`)
+          .then(registration => {
+            console.log('Service worker registered:', registration);
+          })
+          .catch(error => {
+            console.error('Service worker registration failed:', error);
+          });
+      });
+    }
+  </script>  
 </head>
 <body>
   <div id="app" class="app" data-theme="light">
