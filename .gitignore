@@ -1,6 +1,8 @@
 node_modules
 .parcel-cache
 dist
+.env
+docker-compose.yml
 
 # Binaries for programs and plugins
 *.exe
