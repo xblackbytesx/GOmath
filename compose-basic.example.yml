@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  gomath-app:
+    container_name: gomath-app
+    build: .
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
