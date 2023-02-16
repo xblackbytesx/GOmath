@@ -1,8 +1,8 @@
 {
     "name": "GoMath",
     "short_name": "GoMath",
-    "theme_color": "#fff",
-    "background_color": "#fff",
+    "theme_color": "#000",
+    "background_color": "#000",
     "display": "fullScreen",
     "orientation": "",
     "scope": "/",
