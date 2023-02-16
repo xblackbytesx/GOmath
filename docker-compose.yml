@@ -43,4 +43,4 @@ services:
 #       - traefik.http.services.gomath-app.loadbalancer.server.port=8080
 #     networks: 
 #       - proxy
-#   restart: unless-stopped
+#     restart: unless-stopped
